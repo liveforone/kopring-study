@@ -96,6 +96,25 @@ fun createMember(requestDto:MemberRequest) {
             }
 }
 ```
+## 스코프 함수
+* 스코프 함수는 **속성을 사용거나** **속성을 읽는 경우**에 사용해야한다.
+* 내부 상태를 변경하는 경우는 스코프 함수보다는 일반적인 할당을 사용하는 것이 좋다.
+```kotlin
+//[bad]
+val person = Person("Alice", 25)
+person.apply {
+        println("현재 나이: $age")
+        age = 30 // apply 함수 내에서 상태 변경
+        println("변경된 나이: $age")
+}
+
+//[good]
+val person = Person("Ted", 20)
+person.age = 30
+person.apply {
+    println("변경된 나이: $age")
+}
+```
 
 # 4. jdsl
 ## jdsl 사용
