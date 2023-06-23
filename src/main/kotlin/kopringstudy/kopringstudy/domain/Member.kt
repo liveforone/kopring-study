@@ -16,43 +16,44 @@ import java.util.UUID
 
 @Entity
 class Member private constructor(
-    email:String,
-    pw:String,
-    name:String,
-    age:Int,
-    auth:Role
-):UserDetails{
+    email: String,
+    pw: String,
+    name: String,
+    age: Int,
+    auth: Role
+) : UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id:Long? = null
+    var id: Long? = null
 
     @Column(unique = true)
-    var identity:String = createIdentity()
+    val identity: String = createIdentity()
 
-    var email:String = email
+    @Column(unique = true)
+    val email: String = email
 
-    var pw:String = PasswordUtil.encodePassword(pw)
+    var pw: String = PasswordUtil.encodePassword(pw)
 
-    var name:String = name
+    var name: String = name
 
-    var age:Int = age
+    var age: Int = age
 
     @Convert(converter = RoleConverter::class)
-    var auth:Role = auth
+    var auth: Role = auth
 
     companion object {
-        fun create(email: String, pw: String, name:String, age: Int): Member {
+        fun create(email: String, pw: String, name: String, age: Int): Member {
             val adminEmail = "admin@gmail.com"
             return Member(email, pw, name, age, if (email == adminEmail) Role.ADMIN else Role.MEMBER)
         }
     }
 
-    private fun createIdentity():String {
+    private fun createIdentity(): String {
         return UUID.randomUUID().toString()
     }
 
-    fun updatePw(password: String, oldPassword:String) {
+    fun updatePw(password: String, oldPassword: String) {
         if (!PasswordUtil.isMatchPassword(oldPassword, this.pw)) throw MemberCustomException("비밀번호를 틀렸습니다.")
         this.pw = PasswordUtil.encodePassword(password)
     }
