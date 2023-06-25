@@ -17,25 +17,17 @@ object RestResponse {
             .body(SIGNUP_SUCCESS)
     }
 
-    fun loginSuccess(): ResponseEntity<*> {
-        return ResponseEntity.ok(LOGIN_SUCCESS)
-    }
+    fun loginSuccess(): ResponseEntity<*> = ResponseEntity.ok(LOGIN_SUCCESS)
 
-    fun myInfoSuccess(memberResponse: MemberResponse): ResponseEntity<*> {
-        return ResponseEntity.ok(memberResponse)
-    }
+    fun myInfoSuccess(memberResponse: MemberResponse): ResponseEntity<*> = ResponseEntity.ok(memberResponse)
 
-    fun searchMemberSuccess(memberResponse: List<MemberResponse>): ResponseEntity<*> {
-        return ResponseEntity.ok(memberResponse)
-    }
+    fun searchMemberSuccess(memberResponse: List<MemberResponse>): ResponseEntity<*> = ResponseEntity.ok(memberResponse)
 
     fun updatePasswordSuccess(): ResponseEntity<*> {
         return ResponseEntity.ok(UPDATE_PASSWORD_SUCCESS)
     }
 
-    fun adminPageSuccess(allMember: List<MemberResponse>): ResponseEntity<*> {
-        return ResponseEntity.ok(allMember)
-    }
+    fun adminPageSuccess(allMember: List<MemberResponse>): ResponseEntity<*> = ResponseEntity.ok(allMember)
 
     fun prohibition(): ResponseEntity<*> {
         return ResponseEntity

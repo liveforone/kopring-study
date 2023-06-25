@@ -21,11 +21,7 @@ class MemberQueryService @Autowired constructor(
         return MemberMapper.entityToDto(memberRepository.findOneByEmail(email))
     }
 
-    fun searchMember(keyword:String): List<MemberResponse> {
-        return memberRepository.searchMember(keyword)
-    }
+    fun searchMember(keyword:String): List<MemberResponse> = memberRepository.searchMember(keyword)
 
-    fun getAllMemberForAdmin(): List<MemberResponse> {
-        return memberRepository.findAllMember()
-    }
+    fun getAllMemberForAdmin(): List<MemberResponse> = memberRepository.findAllMember()
 }
