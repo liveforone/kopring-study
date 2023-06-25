@@ -7,6 +7,7 @@ import com.linecorp.kotlinjdsl.spring.data.singleQuery
 import jakarta.persistence.NoResultException
 import kopringstudy.kopringstudy.domain.Member
 import kopringstudy.kopringstudy.dto.MemberResponse
+import kopringstudy.kopringstudy.exception.constant.ExceptionMessage
 import kopringstudy.kopringstudy.exception.exception.MemberCustomException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
@@ -22,7 +23,7 @@ class MemberRepositoryImpl @Autowired constructor(private val queryFactory: Spri
                 where(column(Member::email).equal(email))
             }
         } catch (e: NoResultException) {
-            throw MemberCustomException("존재하지 않는 회원입니다.")
+            throw MemberCustomException(ExceptionMessage.MEMBER_IS_NULL.message)
         }
     }
 
@@ -34,7 +35,7 @@ class MemberRepositoryImpl @Autowired constructor(private val queryFactory: Spri
                 where(column(Member::identity).equal(identity))
             }
         } catch (e: NoResultException) {
-            throw MemberCustomException("존재하지 않는 회원입니다.")
+            throw MemberCustomException(ExceptionMessage.MEMBER_IS_NULL.message)
         }
     }
 
