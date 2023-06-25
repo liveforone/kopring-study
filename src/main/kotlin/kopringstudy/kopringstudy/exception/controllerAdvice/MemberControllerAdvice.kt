@@ -16,12 +16,16 @@ class MemberControllerAdvice {
 
     @ExceptionHandler(BadCredentialsException::class)
     fun loginFailHandle():ResponseEntity<*> {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인에 실패했습니다.")
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body("로그인에 실패했습니다.")
     }
 
     @ExceptionHandler(DataIntegrityViolationException::class)
     fun duplicateEntityValueExceptionHandle(): ResponseEntity<*> {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("동일한 값이 존재합니다.")
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body("동일한 값이 존재합니다.")
     }
 
     @ExceptionHandler(BindingCustomException::class)
