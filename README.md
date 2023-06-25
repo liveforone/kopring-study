@@ -57,9 +57,9 @@ ResponseEntity<*>
 * 이유는 이미 validation을 통해서 값이 있다고 검증이 끝났기 때문이다.
 ```
 data class ChangePassword(
-    @field:NotNull(message = "새 비밀번호를 입력하세요.")
+    @field:NotBlank(message = "새 비밀번호를 입력하세요.")
     var password:String?,
-    @field:NotNull(message = "기존 비밀번호를 입력하세요.")
+    @field:NotBlank(message = "기존 비밀번호를 입력하세요.")
     var oldPassword:String?
 )
 
@@ -68,6 +68,10 @@ fun updatePw(changePassword: ChangePassword, identity:String) {
         member.updatePw(changePassword.password!!, changePassword.oldPassword!!)
 }
 ```
+## Int 타입 @NotNull 밸리데이션 가능
+* Java에서는 원시 자료형에 null 값을 할당할 수 없고, 원시 자료형에 대한 값은 기본적으로 0 또는 해당 자료형의 기본 값으로 초기화된다.
+* 코틀린은 기본적으로 모든 변수는 null이 될 수 있는 것으로 취급된다.
+* 따라서 코틀린은 원시자료형도 Null이 될 수 있다. 이에 따라 코틀린에서는 Int형에도 @NotNull 어노테이션 사용이 가능하다.
 
 # 3. 좋은 습관, 코틀린 스러운
 ## 식을 사용할때
