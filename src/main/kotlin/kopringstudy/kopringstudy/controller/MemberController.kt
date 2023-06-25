@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
 import kopringstudy.kopringstudy.authenicationInfo.AuthenticationInfo
+import kopringstudy.kopringstudy.controller.constant.MemberUrl
 import kopringstudy.kopringstudy.dto.ChangePassword
 import kopringstudy.kopringstudy.dto.LoginRequest
 import kopringstudy.kopringstudy.dto.MemberRequest
@@ -34,65 +35,70 @@ class MemberController @Autowired constructor(
     private val controllerValidator: ControllerValidator
 ) {
 
-    @PostMapping("/user/signup")
+    @PostMapping(MemberUrl.SIGNUP)
     fun singUp(
         @RequestBody @Valid memberRequest: MemberRequest,
         bindingResult: BindingResult
     ) :ResponseEntity<*> {
         controllerValidator.validateBinding(bindingResult)
+
         memberCommandService.createMember(memberRequest)
         logger().info("회원가입 성공")
+
         return ResponseEntity.ok("회원가입에 성공했습니다.")
     }
 
-    @PostMapping("/user/login")
+    @PostMapping(MemberUrl.LOGIN)
     fun login(
         @RequestBody @Valid loginRequest: LoginRequest,
         bindingResult: BindingResult,
         response: HttpServletResponse
     ) :ResponseEntity<*> {
         controllerValidator.validateBinding(bindingResult)
-        val tokenInfo = memberCommandService.login(loginRequest)
 
+        val tokenInfo = memberCommandService.login(loginRequest)
         response.addHeader(JwtConstant.ACCESS_TOKEN, tokenInfo.accessToken)
         response.addHeader(JwtConstant.REFRESH_TOKEN, tokenInfo.refreshToken)
+
         return ResponseEntity.ok("로그인 성공")
     }
 
-    @GetMapping("/user/info")
+    @GetMapping(MemberUrl.MEMBER_INFO)
     fun myInfo(principal: Principal):ResponseEntity<*> {
         val member = memberQueryService.getMemberByIdentity(principal.name)
         return ResponseEntity.ok(member)
     }
 
-    @GetMapping("/user/search")
+    @GetMapping(MemberUrl.SEARCH_MEMBER)
     fun searchMember(@RequestParam keyword:String): ResponseEntity<*> {
         val member = memberQueryService.searchMember(keyword)
         return ResponseEntity.ok(member)
     }
 
-    @PutMapping("/user/update-password")
+    @PutMapping(MemberUrl.UPDATE_PASSWORD)
     fun updatePassword(
         @RequestBody @Valid changePassword: ChangePassword,
         bindingResult: BindingResult,
         principal: Principal
     ): ResponseEntity<*> {
         controllerValidator.validateBinding(bindingResult)
+
         memberCommandService.updatePw(changePassword, principal.name)
 
         return ResponseEntity.ok("비밀번호 변경에 성공하였습니다.")
     }
 
-    @GetMapping("/user/find-all")
+    @GetMapping(MemberUrl.ALL_MEMBER_ADMIN_PAGE)
     fun findAllMemberAdminPage(request: HttpServletRequest): ResponseEntity<*> {
         controllerValidator.validateAdmin(authenticationInfo.getAuth(request))
 
         val allMember = memberQueryService.getAllMemberForAdmin()
         logger().info("!! Admin Access in Admin Page : ${authenticationInfo.getUsername(request)}")
+
         return ResponseEntity.ok(allMember)
     }
 
-    @GetMapping("/prohibition")
+    @GetMapping(MemberUrl.PROHIBITION)
     fun prohibition(): ResponseEntity<*> {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("권한이 없습니다.")
     }
