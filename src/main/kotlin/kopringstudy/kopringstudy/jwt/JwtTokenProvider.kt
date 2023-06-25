@@ -65,7 +65,8 @@ class JwtTokenProvider(@Value(JwtConstant.SECRET_KEY_PATH) secretKey: String) {
     }
 
     fun validateToken(token: String?): Boolean {
-        if (token == null) throw MemberCustomException(JwtConstant.TOKEN_IS_NULL)
+        token ?: throw MemberCustomException(JwtConstant.TOKEN_IS_NULL)
+
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token)
             return true
