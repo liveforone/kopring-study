@@ -17,6 +17,10 @@ class MemberQueryService @Autowired constructor(
         return MemberMapper.entityToDto(memberRepository.findOneByIdentity(identity))
     }
 
+    fun getMemberByEmail(email: String): MemberResponse {
+        return MemberMapper.entityToDto(memberRepository.findOneByEmail(email))
+    }
+
     fun searchMember(keyword:String): List<MemberResponse> {
         return memberRepository.searchMember(keyword)
     }
