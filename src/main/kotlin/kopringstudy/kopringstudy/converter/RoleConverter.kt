@@ -7,11 +7,7 @@ import kopringstudy.kopringstudy.domain.Role
 
 @Converter
 class RoleConverter : AttributeConverter<Role, String> {
-    override fun convertToDatabaseColumn(attribute: Role): String {
-        return attribute.name
-    }
+    override fun convertToDatabaseColumn(attribute: Role): String = attribute.name
 
-    override fun convertToEntityAttribute(dbData: String): Role {
-        return Role.valueOf(dbData)
-    }
+    override fun convertToEntityAttribute(dbData: String): Role = Role.valueOf(dbData)
 }

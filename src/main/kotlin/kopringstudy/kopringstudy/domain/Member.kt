@@ -26,9 +26,7 @@ class Member private constructor(
 ) : UserDetails {
 
     companion object {
-        private fun createIdentity(): String {
-            return UUID.randomUUID().toString()
-        }
+        private fun createIdentity(): String = UUID.randomUUID().toString()
 
         fun create(email: String, pw: String, name: String, age: Int): Member {
             val adminEmail = "admin@gmail.com"
