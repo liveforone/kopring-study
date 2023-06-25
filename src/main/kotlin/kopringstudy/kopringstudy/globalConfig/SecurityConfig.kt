@@ -1,5 +1,6 @@
 package kopringstudy.kopringstudy.globalConfig
 
+import kopringstudy.kopringstudy.controller.constant.MemberUrl
 import kopringstudy.kopringstudy.jwt.JwtAuthenticationFilter
 import kopringstudy.kopringstudy.jwt.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,14 +32,12 @@ class SecurityConfig @Autowired constructor(
     fun filterChain(http: HttpSecurity): SecurityFilterChain? {
         http.csrf { obj: CsrfConfigurer<HttpSecurity> -> obj.disable() }
         http.sessionManagement { session: SessionManagementConfigurer<HttpSecurity> ->
-            session.sessionCreationPolicy(
-                SessionCreationPolicy.STATELESS
-            )
+            session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         }
-        http.authorizeHttpRequests { auth: AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry ->
-            auth.requestMatchers(
-                "/user/signup",
-                "/user/login"
+        http.authorizeHttpRequests { path: AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry ->
+            path.requestMatchers(
+                MemberUrl.SIGNUP,
+                MemberUrl.LOGIN
             ).permitAll().anyRequest().authenticated()
         }
         http.addFilterBefore(
@@ -46,9 +45,7 @@ class SecurityConfig @Autowired constructor(
             UsernamePasswordAuthenticationFilter::class.java
         )
         http.exceptionHandling { exception: ExceptionHandlingConfigurer<HttpSecurity> ->
-            exception.accessDeniedPage(
-                "/prohibition"
-            )
+            exception.accessDeniedPage(MemberUrl.PROHIBITION)
         }
         return http.build()
     }
