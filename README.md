@@ -85,7 +85,7 @@ return try {
       }
 ```
 ## 문자열 템플릿
-* $문자열 로 사용하는 문자열 템플릿은 한 문자 밖에 인식하지 못하므로 꼭 ${문자열}로 쓰는 습관을 들이자.
+* '$문자열' 로 사용하는 문자열 템플릿은 한 문자 밖에 인식하지 못하므로 꼭 '${문자열}' 로 쓰는 습관을 들이자.
 ```
 logger().info("!! Admin Access in Admin Page : ${authenticationInfo.getUsername(request)}")
 ```
