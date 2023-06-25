@@ -18,8 +18,6 @@ class ControllerValidator {
     }
 
     fun validateAdmin(auth:String) {
-        if (auth != Role.ADMIN.name) {
-            throw MemberCustomException("어드민이 아닙니다.")
-        }
+        if (auth != Role.ADMIN.name) throw MemberCustomException("어드민이 아닙니다.")
     }
 }
