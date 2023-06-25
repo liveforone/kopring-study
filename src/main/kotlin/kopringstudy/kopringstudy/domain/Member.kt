@@ -16,41 +16,33 @@ import java.util.UUID
 
 @Entity
 class Member private constructor(
-    email: String,
-    pw: String,
-    name: String,
-    age: Int,
-    auth: Role
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?,
+    @Column(unique = true) val identity: String,
+    @Column(unique = true) val email: String,
+    var pw: String,
+    var name: String,
+    var age: Int,
+    @Convert(converter = RoleConverter::class) var auth: Role
 ) : UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
-
-    @Column(unique = true)
-    val identity: String = createIdentity()
-
-    @Column(unique = true)
-    val email: String = email
-
-    var pw: String = PasswordUtil.encodePassword(pw)
-
-    var name: String = name
-
-    var age: Int = age
-
-    @Convert(converter = RoleConverter::class)
-    var auth: Role = auth
-
     companion object {
+        private fun createIdentity(): String {
+            return UUID.randomUUID().toString()
+        }
+
         fun create(email: String, pw: String, name: String, age: Int): Member {
             val adminEmail = "admin@gmail.com"
-            return Member(email, pw, name, age, if (email == adminEmail) Role.ADMIN else Role.MEMBER)
-        }
-    }
 
-    private fun createIdentity(): String {
-        return UUID.randomUUID().toString()
+            return Member(
+                null,
+                createIdentity(),
+                email,
+                PasswordUtil.encodePassword(pw),
+                name,
+                age,
+                if (email == adminEmail) Role.ADMIN else Role.MEMBER
+            )
+        }
     }
 
     fun updatePw(password: String, oldPassword: String) {
@@ -62,7 +54,7 @@ class Member private constructor(
         this.name = name
     }
 
-    fun updateAge() = age++
+    fun updateAge() = this.age++
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         val authList = arrayListOf<GrantedAuthority>()
