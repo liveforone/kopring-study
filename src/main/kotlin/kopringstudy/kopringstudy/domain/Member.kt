@@ -16,10 +16,10 @@ import java.util.UUID
 
 @Entity
 class Member private constructor(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long?,
     @Column(unique = true) val identity: String,
     @Column(unique = true) val email: String,
-    var pw: String,
+    private var pw: String,
     var name: String,
     var age: Int,
     @Convert(converter = RoleConverter::class) var auth: Role
