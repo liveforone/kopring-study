@@ -74,6 +74,8 @@ fun updatePw(changePassword: ChangePassword, identity:String) {
 * 따라서 코틀린은 원시자료형도 Null이 될 수 있다. 이에 따라 코틀린에서는 Int형에도 @NotNull 어노테이션 사용이 가능하다.
 
 # 3. 좋은 습관, 코틀린 스러운
+## 클라이언트에게 리턴하지 않을 컬럼만 private
+* 비밀번호와 같이 클라이언트에게 리턴하지 않을 값만 private으로 선언한다.
 ## 식을 사용할때
 * if, when, try-catch 등은 모두 식이다.
 * 이들을 사용할떄에는 보다 간편하게 아래와 같이 리턴하자.
