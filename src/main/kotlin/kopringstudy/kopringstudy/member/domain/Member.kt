@@ -43,9 +43,9 @@ class Member private constructor(
         }
     }
 
-    fun updatePw(password: String, oldPassword: String) {
+    fun updatePw(newPassword: String, oldPassword: String) {
         if (!PasswordUtil.isMatchPassword(oldPassword, this.pw)) throw MemberCustomException("비밀번호를 틀렸습니다.")
-        this.pw = PasswordUtil.encodePassword(password)
+        this.pw = PasswordUtil.encodePassword(newPassword)
     }
 
     fun updateName(name: String) {

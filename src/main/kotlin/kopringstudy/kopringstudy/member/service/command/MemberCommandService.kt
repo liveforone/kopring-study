@@ -23,7 +23,7 @@ class MemberCommandService @Autowired constructor(
 ) {
 
     fun createMember(signupRequest: SignupRequest) {
-        Member.create(signupRequest.email!!, signupRequest.pw!!, signupRequest.name!!, signupRequest.age!!)
+        Member.create(email = signupRequest.email!!, pw = signupRequest.pw!!, name = signupRequest.name!!, age = signupRequest.age!!)
             .also {
                 memberRepository.save(it)
             }
@@ -44,7 +44,7 @@ class MemberCommandService @Autowired constructor(
 
     fun updatePw(changePassword: ChangePassword, identity:String) {
         memberRepository.findOneByIdentity(identity).also {
-            it.updatePw(changePassword.password!!, changePassword.oldPassword!!)
+            it.updatePw(newPassword = changePassword.password!!, changePassword.oldPassword!!)
         }
     }
 }
