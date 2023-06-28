@@ -66,7 +66,7 @@ class MemberController @Autowired constructor(
 
     @GetMapping(MemberUrl.MEMBER_INFO)
     fun myInfo(principal: Principal):ResponseEntity<*> {
-        val member = memberQueryService.getMemberByIdentity(principal.name)
+        val member = memberQueryService.getMemberByIdentity(identity = principal.name)
 
         return MemberResponse.myInfoSuccess(member)
     }
@@ -86,7 +86,7 @@ class MemberController @Autowired constructor(
     ): ResponseEntity<*> {
         controllerValidator.validateBinding(bindingResult)
 
-        memberCommandService.updatePw(changePassword, principal.name)
+        memberCommandService.updatePw(changePassword, identity = principal.name)
         logger().info(MemberControllerLog.UPDATE_PASSWORD_SUCCESS.log)
 
         return MemberResponse.updatePasswordSuccess()
@@ -94,7 +94,7 @@ class MemberController @Autowired constructor(
 
     @GetMapping(MemberUrl.ALL_MEMBER_ADMIN_PAGE)
     fun findAllMemberAdminPage(request: HttpServletRequest): ResponseEntity<*> {
-        controllerValidator.validateAdmin(authenticationInfo.getAuth(request))
+        controllerValidator.validateAdmin(auth = authenticationInfo.getAuth(request))
 
         val allMember = memberQueryService.getAllMemberForAdmin()
         logger().info(MemberControllerLog.ADMIN_ACCESS.log + authenticationInfo.getUsername(request))
