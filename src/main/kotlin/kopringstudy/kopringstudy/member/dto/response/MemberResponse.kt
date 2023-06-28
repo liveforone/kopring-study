@@ -1,6 +1,6 @@
-package kopringstudy.kopringstudy.dto
+package kopringstudy.kopringstudy.member.dto.response
 
-import kopringstudy.kopringstudy.domain.Role
+import kopringstudy.kopringstudy.member.domain.Role
 
 data class MemberResponse(
     var id: Long?,

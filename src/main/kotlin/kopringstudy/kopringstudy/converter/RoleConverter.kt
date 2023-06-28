@@ -2,7 +2,7 @@ package kopringstudy.kopringstudy.converter
 
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-import kopringstudy.kopringstudy.domain.Role
+import kopringstudy.kopringstudy.member.domain.Role
 
 
 @Converter

@@ -1,19 +1,20 @@
-package kopringstudy.kopringstudy.repository
+package kopringstudy.kopringstudy.member.repository
 
 import com.linecorp.kotlinjdsl.querydsl.expression.column
 import com.linecorp.kotlinjdsl.spring.data.SpringDataQueryFactory
 import com.linecorp.kotlinjdsl.spring.data.listQuery
 import com.linecorp.kotlinjdsl.spring.data.singleQuery
 import jakarta.persistence.NoResultException
-import kopringstudy.kopringstudy.domain.Member
-import kopringstudy.kopringstudy.dto.MemberResponse
+import kopringstudy.kopringstudy.member.domain.Member
+import kopringstudy.kopringstudy.member.dto.response.MemberResponse
 import kopringstudy.kopringstudy.exception.constant.ExceptionMessage
 import kopringstudy.kopringstudy.exception.exception.MemberCustomException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 
 @Repository
-class MemberRepositoryImpl @Autowired constructor(private val queryFactory: SpringDataQueryFactory): MemberCustomRepository {
+class MemberRepositoryImpl @Autowired constructor(private val queryFactory: SpringDataQueryFactory):
+    MemberCustomRepository {
 
     override fun findOneByEmail(email: String): Member {
         return try {

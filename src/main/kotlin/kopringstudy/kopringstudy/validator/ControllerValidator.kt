@@ -1,6 +1,6 @@
 package kopringstudy.kopringstudy.validator
 
-import kopringstudy.kopringstudy.domain.Role
+import kopringstudy.kopringstudy.member.domain.Role
 import kopringstudy.kopringstudy.exception.exception.BindingCustomException
 import kopringstudy.kopringstudy.exception.exception.MemberCustomException
 import org.springframework.stereotype.Component

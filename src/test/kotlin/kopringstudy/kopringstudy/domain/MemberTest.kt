@@ -1,6 +1,7 @@
 package kopringstudy.kopringstudy.domain
 
-import kopringstudy.kopringstudy.domain.utli.PasswordUtil
+import kopringstudy.kopringstudy.member.domain.utli.PasswordUtil
+import kopringstudy.kopringstudy.member.domain.Member
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 

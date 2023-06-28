@@ -1,9 +1,10 @@
 package kopringstudy.kopringstudy.service.command
 
 import jakarta.persistence.EntityManager
-import kopringstudy.kopringstudy.dto.LoginRequest
-import kopringstudy.kopringstudy.dto.MemberRequest
-import kopringstudy.kopringstudy.service.query.MemberQueryService
+import kopringstudy.kopringstudy.member.dto.request.LoginRequest
+import kopringstudy.kopringstudy.member.dto.request.SignupRequest
+import kopringstudy.kopringstudy.member.service.command.MemberCommandService
+import kopringstudy.kopringstudy.member.service.query.MemberQueryService
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,10 +26,10 @@ class MemberCommandServiceTest @Autowired constructor(
         val pw = "1234"
         val name = "createTest"
         val age = 20
-        val memberRequest = MemberRequest(email, pw, name, age)
+        val signupRequest = SignupRequest(email, pw, name, age)
 
         //when
-        memberCommandService.createMember(memberRequest)
+        memberCommandService.createMember(signupRequest)
         entityManager.flush()
         entityManager.clear()
 
@@ -45,8 +46,8 @@ class MemberCommandServiceTest @Autowired constructor(
         val pw = "1234"
         val name = "loginTest"
         val age = 21
-        val memberRequest = MemberRequest(email, pw, name, age)
-        memberCommandService.createMember(memberRequest)
+        val signupRequest = SignupRequest(email, pw, name, age)
+        memberCommandService.createMember(signupRequest)
         entityManager.flush()
         entityManager.clear()
 

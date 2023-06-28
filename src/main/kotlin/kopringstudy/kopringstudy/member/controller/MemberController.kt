@@ -1,22 +1,21 @@
-package kopringstudy.kopringstudy.controller
+package kopringstudy.kopringstudy.member.controller
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
 import kopringstudy.kopringstudy.authenicationInfo.AuthenticationInfo
-import kopringstudy.kopringstudy.controller.constant.ControllerLog
-import kopringstudy.kopringstudy.controller.constant.MemberUrl
-import kopringstudy.kopringstudy.controller.response.RestResponse
-import kopringstudy.kopringstudy.dto.ChangePassword
-import kopringstudy.kopringstudy.dto.LoginRequest
-import kopringstudy.kopringstudy.dto.MemberRequest
+import kopringstudy.kopringstudy.member.controller.constant.MemberControllerLog
+import kopringstudy.kopringstudy.member.controller.constant.MemberUrl
+import kopringstudy.kopringstudy.member.controller.response.MemberResponse
+import kopringstudy.kopringstudy.member.dto.update.ChangePassword
+import kopringstudy.kopringstudy.member.dto.request.LoginRequest
+import kopringstudy.kopringstudy.member.dto.request.SignupRequest
 import kopringstudy.kopringstudy.jwt.constant.JwtConstant
-import kopringstudy.kopringstudy.service.command.MemberCommandService
-import kopringstudy.kopringstudy.service.query.MemberQueryService
+import kopringstudy.kopringstudy.member.service.command.MemberCommandService
+import kopringstudy.kopringstudy.member.service.query.MemberQueryService
 import kopringstudy.kopringstudy.validator.ControllerValidator
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.GetMapping
@@ -39,15 +38,15 @@ class MemberController @Autowired constructor(
 
     @PostMapping(MemberUrl.SIGNUP)
     fun singUp(
-        @RequestBody @Valid memberRequest: MemberRequest,
+        @RequestBody @Valid signupRequest: SignupRequest,
         bindingResult: BindingResult
     ) :ResponseEntity<*> {
         controllerValidator.validateBinding(bindingResult)
 
-        memberCommandService.createMember(memberRequest)
-        logger().info(ControllerLog.SIGNUP_SUCCESS.log)
+        memberCommandService.createMember(signupRequest)
+        logger().info(MemberControllerLog.SIGNUP_SUCCESS.log)
 
-        return RestResponse.signupSuccess()
+        return MemberResponse.signupSuccess()
     }
 
     @PostMapping(MemberUrl.LOGIN)
@@ -62,21 +61,21 @@ class MemberController @Autowired constructor(
         response.addHeader(JwtConstant.ACCESS_TOKEN, tokenInfo.accessToken)
         response.addHeader(JwtConstant.REFRESH_TOKEN, tokenInfo.refreshToken)
 
-        return RestResponse.loginSuccess()
+        return MemberResponse.loginSuccess()
     }
 
     @GetMapping(MemberUrl.MEMBER_INFO)
     fun myInfo(principal: Principal):ResponseEntity<*> {
         val member = memberQueryService.getMemberByIdentity(principal.name)
 
-        return RestResponse.myInfoSuccess(member)
+        return MemberResponse.myInfoSuccess(member)
     }
 
     @GetMapping(MemberUrl.SEARCH_MEMBER)
     fun searchMember(@RequestParam keyword:String): ResponseEntity<*> {
         val members = memberQueryService.searchMember(keyword)
 
-        return RestResponse.searchMemberSuccess(members)
+        return MemberResponse.searchMemberSuccess(members)
     }
 
     @PutMapping(MemberUrl.UPDATE_PASSWORD)
@@ -88,9 +87,9 @@ class MemberController @Autowired constructor(
         controllerValidator.validateBinding(bindingResult)
 
         memberCommandService.updatePw(changePassword, principal.name)
-        logger().info(ControllerLog.UPDATE_PASSWORD_SUCCESS.log)
+        logger().info(MemberControllerLog.UPDATE_PASSWORD_SUCCESS.log)
 
-        return RestResponse.updatePasswordSuccess()
+        return MemberResponse.updatePasswordSuccess()
     }
 
     @GetMapping(MemberUrl.ALL_MEMBER_ADMIN_PAGE)
@@ -98,13 +97,13 @@ class MemberController @Autowired constructor(
         controllerValidator.validateAdmin(authenticationInfo.getAuth(request))
 
         val allMember = memberQueryService.getAllMemberForAdmin()
-        logger().info(ControllerLog.ADMIN_ACCESS.log + authenticationInfo.getUsername(request))
+        logger().info(MemberControllerLog.ADMIN_ACCESS.log + authenticationInfo.getUsername(request))
 
-        return RestResponse.adminPageSuccess(allMember)
+        return MemberResponse.adminPageSuccess(allMember)
     }
 
     @GetMapping(MemberUrl.PROHIBITION)
     fun prohibition(): ResponseEntity<*> {
-        return RestResponse.prohibition()
+        return MemberResponse.prohibition()
     }
 }

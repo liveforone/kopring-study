@@ -1,8 +1,8 @@
-package kopringstudy.kopringstudy.service.query
+package kopringstudy.kopringstudy.member.service.query
 
-import kopringstudy.kopringstudy.dto.MemberResponse
-import kopringstudy.kopringstudy.dto.util.MemberMapper
-import kopringstudy.kopringstudy.repository.MemberRepository
+import kopringstudy.kopringstudy.member.dto.response.MemberResponse
+import kopringstudy.kopringstudy.member.dto.util.MemberMapper
+import kopringstudy.kopringstudy.member.repository.MemberRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class MemberQueryService @Autowired constructor(
-    private val memberRepository:MemberRepository
+    private val memberRepository: MemberRepository
 ) {
 
     fun getMemberByIdentity(identity:String): MemberResponse {

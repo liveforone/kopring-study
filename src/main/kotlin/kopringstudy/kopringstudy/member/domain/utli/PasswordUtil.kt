@@ -1,4 +1,4 @@
-package kopringstudy.kopringstudy.domain.utli
+package kopringstudy.kopringstudy.member.domain.utli
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 

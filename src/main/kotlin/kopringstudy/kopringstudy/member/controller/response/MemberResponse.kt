@@ -1,10 +1,10 @@
-package kopringstudy.kopringstudy.controller.response
+package kopringstudy.kopringstudy.member.controller.response
 
-import kopringstudy.kopringstudy.dto.MemberResponse
+import kopringstudy.kopringstudy.member.dto.response.MemberResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
-object RestResponse {
+object MemberResponse {
 
     private const val SIGNUP_SUCCESS = "회원가입에 성공하였습니다.\n 반갑습니다."
     private const val LOGIN_SUCCESS = "로그인을 성공하였습니다."

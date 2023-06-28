@@ -1,4 +1,4 @@
-package kopringstudy.kopringstudy.domain
+package kopringstudy.kopringstudy.member.domain
 
 import jakarta.persistence.Column
 import jakarta.persistence.Convert
@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import kopringstudy.kopringstudy.converter.RoleConverter
-import kopringstudy.kopringstudy.domain.utli.PasswordUtil
+import kopringstudy.kopringstudy.member.domain.utli.PasswordUtil
 import kopringstudy.kopringstudy.exception.exception.MemberCustomException
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -19,7 +19,7 @@ class Member private constructor(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long?,
     @Column(unique = true) val identity: String,
     @Column(unique = true) val email: String,
-    private var pw: String,
+    var pw: String,
     var name: String,
     var age: Int,
     @Convert(converter = RoleConverter::class) var auth: Role

@@ -1,7 +1,7 @@
-package kopringstudy.kopringstudy.repository
+package kopringstudy.kopringstudy.member.repository
 
-import kopringstudy.kopringstudy.domain.Member
-import kopringstudy.kopringstudy.dto.MemberResponse
+import kopringstudy.kopringstudy.member.domain.Member
+import kopringstudy.kopringstudy.member.dto.response.MemberResponse
 
 interface MemberCustomRepository {
     fun findOneByEmail(email: String): Member

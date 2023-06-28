@@ -3,7 +3,7 @@ package kopringstudy.kopringstudy.jwt
 import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SecurityException
-import kopringstudy.kopringstudy.domain.Member
+import kopringstudy.kopringstudy.member.domain.Member
 import kopringstudy.kopringstudy.exception.exception.MemberCustomException
 import kopringstudy.kopringstudy.jwt.constant.JwtConstant
 import org.slf4j.LoggerFactory
@@ -30,7 +30,7 @@ class JwtTokenProvider(@Value(JwtConstant.SECRET_KEY_PATH) secretKey: String) {
         key = Keys.hmacShaKeyFor(keyBytes)
     }
 
-    fun generateToken(member:Member): TokenInfo {
+    fun generateToken(member: Member): TokenInfo {
         val now: Long = Date().time
         val accessToken = Jwts.builder()
             .setSubject(member.identity)

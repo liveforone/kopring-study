@@ -1,6 +1,6 @@
 package kopringstudy.kopringstudy.globalConfig
 
-import kopringstudy.kopringstudy.controller.constant.MemberUrl
+import kopringstudy.kopringstudy.member.controller.constant.MemberUrl
 import kopringstudy.kopringstudy.jwt.JwtAuthenticationFilter
 import kopringstudy.kopringstudy.jwt.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired

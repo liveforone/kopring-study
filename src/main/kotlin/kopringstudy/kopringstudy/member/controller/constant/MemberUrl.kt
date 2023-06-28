@@ -1,4 +1,4 @@
-package kopringstudy.kopringstudy.controller.constant
+package kopringstudy.kopringstudy.member.controller.constant
 
 object MemberUrl {
     const val SIGNUP = "/user/signup"

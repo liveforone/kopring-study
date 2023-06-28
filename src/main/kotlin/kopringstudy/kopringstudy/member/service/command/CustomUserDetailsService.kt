@@ -1,8 +1,8 @@
-package kopringstudy.kopringstudy.service.command
+package kopringstudy.kopringstudy.member.service.command
 
-import kopringstudy.kopringstudy.domain.Member
-import kopringstudy.kopringstudy.domain.Role
-import kopringstudy.kopringstudy.repository.MemberRepository
+import kopringstudy.kopringstudy.member.domain.Member
+import kopringstudy.kopringstudy.member.domain.Role
+import kopringstudy.kopringstudy.member.repository.MemberRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails

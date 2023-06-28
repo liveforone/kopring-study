@@ -1,4 +1,4 @@
-package kopringstudy.kopringstudy.dto
+package kopringstudy.kopringstudy.member.dto.update
 
 import jakarta.validation.constraints.NotBlank
 
