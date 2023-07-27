@@ -72,6 +72,13 @@ fun updatePw(changePassword: ChangePassword, identity:String) {
 * Java에서는 원시 자료형에 null 값을 할당할 수 없고, 원시 자료형에 대한 값은 기본적으로 0 또는 해당 자료형의 기본 값으로 초기화된다.
 * 코틀린은 기본적으로 모든 변수는 null이 될 수 있는 것으로 취급된다.
 * 따라서 코틀린은 원시자료형도 Null이 될 수 있다. 이에 따라 코틀린에서는 Int형에도 @NotNull 어노테이션 사용이 가능하다.
+## 코틀린 사용시 Embeddable
+* 기본생성자가 필요해 noargs에 추가
+* final이면 안되기 때문에 allopen에 추가
+* 프라퍼티에는 getter/setter 존재해야함. -> var로 선언
+## 코틀린 사용시 idclass
+* noargs가 필요하므로, 필드에 "" 혹은 null로 값 추가.
+* 또한 컬럼명을 지정해주자. ImplicitNamingStrategy를 사용할 수 있게된다.
 
 # 3. 좋은 습관, 코틀린 스러운
 ## 클라이언트에게 리턴하지 않을 컬럼만 private
@@ -230,4 +237,14 @@ column(Book::createdAt).between(Time.of("2001-01-01"), Time.of("2010-12-31"))
 * lessThan
 * lessThanOrEqualTo
 * greaterThan
-* greaterThanOrEqualTo
+* greaterThanOrEqualTo 
+
+# 번외 
+## 트랜잭션 중첩
+1. 첫 번째 메서드의 트랜잭션 시작 (예: @Transactional 시작)
+2. 첫 번째 메서드 내에서 두 번째 메서드 호출
+3. 두 번째 메서드의 트랜잭션 시작 (예: @Transactional 시작)
+4. 두 번째 메서드 수행 (두 번째 메서드 내에서 쿼리 실행)
+5. 두 번째 메서드의 트랜잭션 종료 (예: @Transactional 종료, 커밋 또는 롤백)
+6. 첫 번째 메서드 수행 (첫 번째 메서드 내에서 쿼리 실행)
+7. 첫 번째 메서드의 트랜잭션 종료 (예: @Transactional 종료, 커밋 또는 롤백)
